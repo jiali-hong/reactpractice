@@ -1,0 +1,42 @@
+#mountNode {
+  color: #333;
+}
+
+.question {
+	border: thin solid #888;
+  padding: 2rem;
+  margin-bottom: 5px;
+/*   justify-content: center; */
+}
+
+textarea {
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 100%;
+  min-height: 200px;
+}
+
+.submit {
+  height: 30px;
+  width: 100%;
+}
+
+.choices {
+  width: 50%;
+}
+
+h2 {
+  text-align: center;
+}
+
+.body {
+  padding: 25px 100px;
+}
+
+.list {
+  font-size: large;
+}
+
+input {
+  width:100%;
+}
