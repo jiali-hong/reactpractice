@@ -40,3 +40,9 @@ h2 {
 input {
   width:100%;
 }
+
+small {
+  color: darkblue;
+  padding-left: 25px;
+  text-decoration: underline;
+}
