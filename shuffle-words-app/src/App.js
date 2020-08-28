@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import './App.css';
 
 
 let WordStatus = 'Entering';
-let wordsObj = {
+/*
+let testObj = {
   Commonly_Misspelled_Words: 'absence, accept, acceptable, accessible, accidentally, accommodate, achieved, acquainted, acquiescence, acquire, acquit, acknowledge, aerial, aggravate, agreeable, all right, alright, a lot, amateur, ambiguous, amendment, analysis, ancillary, apparent, appearance, approximate, argument, arrangement, ascend, atheist, baffled, beginning, benefited, believe, briefly, business, calculator, calendar, category, ceiling, cecemetery, changeable, chaotic, choice, colleagues, collectible, college, commission, commitment, committed, committee, companion, compensate, competitively, completely, concede, conceding, connoisseur, conscience, conscientious, conscious, consistent, convenient, correspondents, counterfeit, courteous, courtesy, criticism, crucial, dabble, debriefing, deceive, decipher, deficient, definite, definitely, description, desirable, deterrent, develop, disappear, disappointed, discipline, discrepancy, dissatisfied, dissertation, drunkenness, eccentric, econoomic, embarrass, embarrassment, emphasise, equipped, equipment, especially, essential, exaggerate, excellent, except, exercise, existence, expenses, extremely, exhilarate, exceed, existence, experience, faithfully, feasible, fiery, foreign, fordfeit, forty, fourth, fulfilled, fulfilment, frivolous, gauge, generally, generalisation, government, grammar, grievance, grateful, guarantee, guardian harrass, height, hierarchy ignorance, immediate, immediate.y immensity, independent, indispensable, inoculate, intelligence, irrational, irrelevant, irreparable, judgement, kindly, knowledge, knowledgeable, leisure, liaise, library, lightning, maitenance, manoeuvre, mathematics, memento, millenium, miniature, minuscule, mischievous, miscellaneous, misspell, mationally, necessary, negotiate, niece, noticeable, occasion, occasionally, occupant, occur, occurred, occurrence, official, omission, omitted, parallel, particularly, parliament, pastime, permanenet, permutation, perserverance, pigeon, possession, precede proferable, preference, preliminary, principal, principle, privilege, procedure, proceed, professor, proprietary, psychology, questionnaire, reasonable, receive, recommend, referred, reference, regrettable, relevant, relief, relieve, religious, repetition, restaurant, ridiculous, rhythm, sacrilegious, sandal schedule, science, scissorrs, secretaries, sensible, separate, separately, seize, similar, sincerely, sovereign, special, stationary, stationery, success, supersede, surprising, tomorrow, transferred, twelfth, twentieth, tyranny, undoubtedly, unnecessary, until, unwritten, vacuum, vicious, visible, weather, weird, withdrawn, withhold',
   Common_Names: 'Alice, Henry, Helen, James, John, Peter, Anna, Robert, Jennifer, Michael, Linda, William, Elizabeth, David,	Barbara, Richard, Susan, Joseph, Jessica',
   English_Alphabet: 'a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z',
@@ -12,13 +13,18 @@ let wordsObj = {
   Greek_Alphabet: 'Α α, Β β, Γ γ, Δ δ, Ε ε, Ζ ζ, Η η, Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π, Ρ ρ, Σ σ/ς, Τ τ, Υ υ, Φ φ, Χ χ, Ψ ψ, Ω ω',
   German_Alphabet: 'a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z, ß, ä, ö, ü',
 };
+*/
 
 const Header = (props) => {
   let title = getFormatedTitle(props.title)
   return(
     <div>
       <h1 className="display-4">Shuffle Words App</h1>
-      {WordStatus !== 'Entering'? <h4>{title}<small onClick={() => props.editIt(props.title) }>edit</small></h4>: <div></div> }
+      {WordStatus !== 'Entering'? 
+      <h4>{title}
+      <small onClick={() => props.editIt(props.title) }>edit</small>
+      <small onClick={() => props.deleteIt(props.title) }>delete</small>
+      </h4>: <div></div> }
       <hr/>
     </div>
   );
@@ -69,8 +75,8 @@ class InputWords extends React.Component{
 
   submitted = () => {
     let content = this.state.content;
-    let title = this.state.title;
-    
+    let title = getUnFormatedTitle(this.state.title);
+    let dict = Object.assign({}, this.props.obj.words);
     // title is not filled?
     if (title === ''){
         alert("Please Enter A Title!");
@@ -84,15 +90,15 @@ class InputWords extends React.Component{
     
     // this.props.obj.title present?
     if (this.props.obj.title !== ''){
-        delete this.dict[this.props.obj.title]
+        delete dict[this.props.obj.title]
+        this.props.obj.deleteWords(this.props.obj.title)
     }
     else {
       // title is used?
-      if (this.dict[getUnFormatedTitle(title)] !== undefined){
+      if (dict[title] !== undefined){
       
         const titleUsed = window.confirm('This title has already been used! Are you sure you wish to replace the content under this title?');
         if (titleUsed === true){
-            console.log('covered past content!');
         }
         else {
             return;
@@ -100,9 +106,10 @@ class InputWords extends React.Component{
     }
     }
     // enter next page
-    this.dict[getUnFormatedTitle(title)]=content;
-    this.props.obj.setWords(this.dict);
-    this.props.obj.setTitle(getUnFormatedTitle(title));
+    dict[title]=content;
+    this.props.obj.postWords(title,content)
+    this.props.obj.setWords(dict);
+    this.props.obj.setTitle(title);
     this.setState({ content: ''});
     this.setState({ title: ''});
     WordStatus = 'Original';
@@ -211,9 +218,36 @@ const Footer = (props) => {
 
 function App() {
   const [title, setTitle] = useState('');
-  const [words, setWords] = useState(wordsObj);
+  const [words, setWords] = useState({});
   const [key, setKey] = useState(1);
 
+  useEffect(() => {
+    if (Object.keys(words).length === 0){
+      getWords()
+    }
+  })
+
+  //get Object from localhost
+  const getWords = async() => {
+    const res = await axios.get("http://127.0.0.1:5000/words");
+    setWords(res.data)
+  }
+  //post Object to localhost
+  const postWords = async(newTitle,newWords) => {
+    const res = await axios.post('http://127.0.0.1:5000/words',`title=${newTitle}&words=${newWords}`)
+    console.log(res.data)
+  }
+  //put Object to localhost
+  const putWords = async(oldTitle,newWords) => {
+    const res = await axios.put(`http://127.0.0.1:5000/words/${oldTitle}`,`words=${newWords}`)
+    console.log(res.data)
+  }
+  //delete Object from localhost
+  const deleteWords = async(oldTitle) => {
+    const res = await axios.delete(`http://127.0.0.1:5000/words/${oldTitle}`)
+    console.log(res.data)
+  }
+  
   const obj = {
     setWords,
     words,
@@ -221,6 +255,8 @@ function App() {
     title,
     setKey,
     key,
+    postWords,
+    deleteWords,
   };
 
   const changeTitle = (newTitle) => {
@@ -235,18 +271,24 @@ function App() {
       setKey(key + 1);
   }
 
+  const deleteIt = (oldTitle) => {
+    deleteWords(oldTitle);
+    let dict = Object.assign({}, words);
+    delete dict[oldTitle]
+    setWords(dict)
+    setTitle('');
+    WordStatus = "Entering";
+    setKey(key + 1);
+}
+
+
   return(
       <div className="container" >
-        <Header title={title} editIt={editIt} />
+        <Header title={title} editIt={editIt} deleteIt={deleteIt}/>
         <Body obj={obj} key={key}/>
         <Footer words={words} changeTitle={changeTitle}/>
       </div>
   );
-}
-
-const getDict = async() => {
-  const resp = await axios.get("http://127.0.0.1:5000/words");
-  return resp.data;
 }
 
 const getFormatedArray = (words) => {
@@ -276,6 +318,9 @@ const getFormatedTitle = (title) => {
   
 const getUnFormatedTitle = (title) => {
     let newTitle = title.split(' ');
+    if (newTitle.length === 1){
+      return title;
+    }
     newTitle = newTitle.join('_')
     return newTitle;
 }
