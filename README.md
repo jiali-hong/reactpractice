@@ -5,11 +5,13 @@ Make small projects and apps with react in here.
 ### /shuffle-words-app
 the first start from scratch app
 run with command:
-##### npm run dev
+#### npm run dev
 
 
-### /quick-maths
-not yet started
+### /kvcalc
+an app based on: https://arithmetic.zetamac.com/
+run with command:
+#### npm start
 
 
 ### /jscomplete
