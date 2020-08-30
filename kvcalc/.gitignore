@@ -2,6 +2,12 @@
 
 # dependencies
 /node_modules
+/build
+/www
+/platforms
+/plugins
+/typings
+/.vscode
 /.pnp
 .pnp.js
 

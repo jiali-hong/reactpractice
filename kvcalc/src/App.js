@@ -5,8 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [key,setKey] = useState(0);
+  const [theme, setTheme] = useState('light')
   return (
-    <Game key={key} startNewGame={() => setKey(key + 1)} gameKey={key}/>
+    <Game key={key} startNewGame={() => setKey(key + 1)} gameKey={key} theme={theme} setTheme={setTheme}/>
   );
 }
 
