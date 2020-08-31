@@ -4,14 +4,15 @@
 
 .question {
 	border: thin solid #888;
-  padding: 2rem;
-  margin-bottom: 5px;
+  padding: 5%;
+  margin-bottom: 1%;
 }
 
 textarea {
-  padding-left: 30px;
-  padding-right: 30px;
-  width: 100%;
+  margin-left: 0.1%;
+  margin-right: 0.1%;
+  min-width: 100%;
+  max-width: 100%;
   min-height: 200px;
 }
 
@@ -29,7 +30,7 @@ h2 {
 }
 
 .container {
-  padding: 25px 100px;
+  padding: 1% 2%;
 }
 
 .list {
@@ -38,10 +39,20 @@ h2 {
 
 input {
   width:100%;
+  margin-left: 0.1%;
+  margin-right: 0.1%;
 }
 
 small {
   color: darkblue;
   padding-left: 25px;
   text-decoration: underline;
+}
+
+.help{
+  text-align: right;
+}
+
+.labels {
+  margin-left: 0.1%;
 }

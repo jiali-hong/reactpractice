@@ -28,7 +28,7 @@ class InputWords extends React.Component{
           return;
       }
       // content is not filled?
-      if (content === ''){
+      if (content === '' || content.split(',').length < 2){
           alert("Please Enter Two or More Words Separated by Commas!");
           return;
       }
@@ -36,7 +36,7 @@ class InputWords extends React.Component{
       // this.props.obj.title present?
       if (this.props.obj.title !== ''){
           delete dict[this.props.obj.title]
-          this.props.obj.deleteWords(this.props.obj.title)
+          // this.props.obj.deleteWords(this.props.obj.title)
       }
       else {
         // title is used?
@@ -52,7 +52,10 @@ class InputWords extends React.Component{
       }
       // enter next page
       dict[title]=content;
-      this.props.obj.postWords(title,content)
+      // this.props.obj.postWords(title,content)
+      localStorage.setItem('Words', JSON.stringify(dict))
+      let strWords = JSON.stringify(dict)
+      localStorage.setItem('WORDS', strWords)
       this.props.obj.setWords(dict);
       this.props.obj.setTitle(title);
       this.setState({ content: ''});
@@ -63,13 +66,14 @@ class InputWords extends React.Component{
     render(){
       return (
        <div>
+          <div className='help'>Separate Words by Commas, Please!</div>
           <div className='question'>
-              <div>Title :</div>
+              <div className='labels'>Title:</div>
               <input
               type="text"
               value={this.state.title}
               onChange={this.onchangeTitle}/>
-              <div>Input Words (separate them by commas) : </div>
+              <div className='labels'>Input Words: </div>
               <textarea 
                 type="text"
                 value={this.state.content}

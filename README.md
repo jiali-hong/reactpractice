@@ -2,10 +2,10 @@
 Make small projects and apps with react in here.
 
 
-### /shuffle-words-app
-the first start from scratch app
+### /shuffle-words
+cordova and react combined app
 run with command:
-#### npm run dev
+#### npm start
 
 
 ### /kvcalc

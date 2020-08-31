@@ -3,7 +3,7 @@ import Header from './components/Header'
 import Body from './components/Body'
 import Footer from './components/Footer'
 import useAppStates from './components/useAppStates'
-import restfulMethods from './components/restfulMethods'
+// import restfulMethods from './components/restfulMethods'
 
 /*
 let testObj = {
@@ -28,10 +28,10 @@ function App(props) {
     setWordStatus,
   } = useAppStates();
 
-  let {
-    postWords,
-    deleteWords
-  } = restfulMethods;
+  // let {
+  //   postWords,
+  //   deleteWords
+  // } = restfulMethods;
 
   const obj = {
     setWords,
@@ -42,8 +42,8 @@ function App(props) {
     key,
     setWordStatus,
     wordStatus,
-    postWords,
-    deleteWords,
+    // postWords,
+    // deleteWords,
   };
 
   const changeTitle = (newTitle) => {
@@ -59,13 +59,18 @@ function App(props) {
   }
 
   const deleteIt = (oldTitle) => {
-    restfulMethods.deleteWords(oldTitle);
-    let dict = Object.assign({}, words);
-    delete dict[oldTitle]
-    setWords(dict)
-    setTitle('');
-    setWordStatus("Entering");
-    setKey(key + 1);
+    // restfulMethods.deleteWords(oldTitle);
+    const deleteConfirm = window.confirm('Are you sure you want to delete this set of words?');
+    if (deleteConfirm === true){
+      let dict = Object.assign({}, words);
+      delete dict[oldTitle]
+      localStorage.setItem('WORDS', JSON.stringify(dict))
+      setWords(dict)
+      setTitle('');
+      setWordStatus("Entering");
+      setKey(key + 1);
+    }else{
+    }
 }
 
   return(
