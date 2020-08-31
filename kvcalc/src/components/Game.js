@@ -1,6 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import {Container,Row,Col,Button,ButtonGroup,ToggleButton} from 'react-bootstrap';
 import getRandomFormula from './maths'
+import getDate from './getDate'
+
 
 class Body extends React.Component{
     state = { answer: '' };
@@ -31,12 +33,16 @@ class Body extends React.Component{
     }
 }
 
-const PlayAgain = props => (
-	<div className="PlayGame">
+const PlayAgain = props => {
+    const saveRecord = () => {
+        localStorage.setItem(getDate(),props.score)
+    }
+    saveRecord()
+	return (<div className="PlayGame">
       {props.Name !== 'Start' ?  <h2>Your Score: {props.score}</h2>:<h2>Maths Game!</h2>}
       <Button onClick={props.onClick} variant={props.theme !== 'dark' ? "outline-dark": "outline-light"}>{props.Name}</Button>
-	</div>
-);
+	</div>)
+}
 
 const Game = props => {
     const {ans, problem} = getRandomFormula()
@@ -81,38 +87,11 @@ const Game = props => {
                     )}
                     </Col>
                 </Row>
-                <Row>
-                    <Col></Col>
-                    <Col>
-                        <ThemeChanger setTheme={setTheme} theme={theme}/>
-                    </Col>
-                </Row>
             </Container>
         </div>
     );
 }
 
-const ThemeChanger = props => {
-    const radios = ['light','dark'];
 
-    return (
-        <div className="themeChanger">
-            <ButtonGroup toggle >
-                {radios.map((radio,idx) => 
-                <ToggleButton
-                    type="radio"
-                    key={idx}
-                    checked={props.theme === radio}
-                    variant={props.theme !== 'dark' ? "outline-dark": "outline-light"}
-                    onClick={() => {
-                        props.setTheme(radio);
-                        document.getElementById('HTML').className = radio !== 'dark' ? 'LIGHT': 'DARK';
-                    }}
-                > {radio} </ToggleButton>
-                )}
-            </ButtonGroup>
-        </div>
-    )
-}
 
 export default Game;
