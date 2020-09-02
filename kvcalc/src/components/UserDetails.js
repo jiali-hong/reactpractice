@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container,Row,Col,Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const PlayAgain = props => {
 	return (
@@ -14,7 +15,7 @@ const PlayAgain = props => {
                 <Row>
                     <Col></Col>
                     <Col>
-                        <Button variant="link" href="/login" onClick={() => localStorage.setItem("currentUser",'')}>logout</Button>
+                       <Link to='login' onClick={() => {localStorage.setItem("currentUser",'');props.refresh()}}>logout</Link>
                     </Col>
                 </Row>
                 

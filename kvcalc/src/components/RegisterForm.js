@@ -1,11 +1,13 @@
 import React from 'react';
 import {Container, Form, Button, Row, Col} from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
 
 class RegisterForm extends React.Component{
     state = {
         username: '',
         email: '',
-        password: ''    
+        password: '',
+        redirect: false
     }
 
     onUsernameChange = event => {
@@ -41,8 +43,9 @@ class RegisterForm extends React.Component{
                 usersDict[username] = {password:password,email:email}
                 localStorage.setItem('users',JSON.stringify(usersDict))
                 localStorage.setItem(username,JSON.stringify({}))
-                window.location.assign("/login")
-                this.props.refresh()
+                this.setState({redirect: true})
+                // window.location.assign("/login")
+                // this.props.refresh()
             }else{
                 alert('Your chosen email has already been used! Please use another email.')
             }
@@ -72,11 +75,12 @@ class RegisterForm extends React.Component{
                         <Button variant={colour} type="submit" onClick={this.onSubmit}>
                             Submit
                         </Button>
+                        {this.state.redirect && <Redirect to="/login"/>}
                     </Form>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Button variant="link" href="/login">click here to login</Button>
+                            <Link to="login">click here to login</Link>
                         </Col>
                     </Row>
                     

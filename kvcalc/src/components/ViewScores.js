@@ -1,10 +1,12 @@
 import React from 'react';
 import {Container,Table} from 'react-bootstrap';
-// import getDate from './getDate'
 
 const ViewScores = (props) => {
     let currentUser = localStorage.getItem('currentUser')
     const showScores = () => {
+        if (currentUser !== null && ''){
+            return;
+        }
         let scores = JSON.parse(localStorage.getItem(localStorage.getItem('currentUser'))),
             scoresArray = Object.keys(scores),
             array = [];
@@ -17,29 +19,31 @@ const ViewScores = (props) => {
         <div className={props.theme !== 'dark'? 'LIGHT': 'DARK'}>
             <Container>
                 <h1 className="Title">Scores</h1>
-                {currentUser !== null && currentUser !== ''? 
-                <div>
-                    <Table striped hover variant={props.theme}>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>date</th>
-                                <th>score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {showScores().map(score => 
-                            <tr>
-                                <td>{showScores().indexOf(score)+1}</td>
-                                <td>{score.split(": ")[0]}</td>
-                                <td>{score.split(": ")[1]}</td>
-                            </tr>)}
-                        </tbody>
-                    </Table>
+                {currentUser === null || currentUser === ''? 
+                    <div>Please login first!</div>
+                    :
+                    <div>
+                        <Table striped hover variant={props.theme}>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>date</th>
+                                    <th>score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {showScores().map(score => 
+                                <tr>
+                                    <td>{showScores().indexOf(score)+1}</td>
+                                    <td>{score.split(": ")[0]}</td>
+                                    <td>{score.split(": ")[1]}</td>
+                                </tr>)}
+                            </tbody>
+                        </Table>
+                        
+                    </div>
                     
-                </div>
-                :
-                <div>Please login first!</div>}
+                }
             </Container>
         </div>
     )

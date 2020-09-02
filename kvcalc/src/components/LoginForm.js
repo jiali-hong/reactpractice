@@ -1,10 +1,12 @@
 import React from 'react';
 import {Container, Form, Button, Row, Col} from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
 
 class LoginForm extends React.Component{
     state = {
         username: '',
-        password: ''    
+        password: '',
+        redirect: false
     }
 
     onUsernameChange = event => {
@@ -30,7 +32,7 @@ class LoginForm extends React.Component{
         }else{
             if (usersDict[username]["password"] === password){
                 localStorage.setItem('currentUser',username)
-                window.location.assign("/user")
+                this.setState({redirect:true});
                 this.props.refresh()
             }else{
                 alert('Your Password is incorrect! Please enter again!')
@@ -54,14 +56,15 @@ class LoginForm extends React.Component{
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.onPasswordChange} required/>
                         </Form.Group>
-                        <Button variant={colour} type="submit" onClick={this.onSubmit}>
-                            Submit
-                        </Button>
+                        <Link>
+                            <Button variant={colour} type="submit" onClick={this.onSubmit}>Submit</Button>
+                            {this.state.redirect && <Redirect to="/user"/>}
+                        </Link>
                     </Form>
                     <Row>
                         <Col></Col>
                         <Col>
-                            <Button variant="link" href="/register">click here to register</Button>
+                            <Link to="register">click here to register</Link>
                         </Col>
                     </Row>
                     
