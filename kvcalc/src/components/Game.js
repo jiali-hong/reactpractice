@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
-import {Container,Row,Col,Button,ButtonGroup,ToggleButton} from 'react-bootstrap';
+import {Container,Row,Col} from 'react-bootstrap';
 import getRandomFormula from './maths'
-import getDate from './getDate'
+import PlayAgain from './PlayAgain'
 
 
 class Body extends React.Component{
@@ -27,21 +27,9 @@ class Body extends React.Component{
                 value={this.state.answer}
                 onChange={this.onchange}
                 />
-            
         </div>  
         );
     }
-}
-
-const PlayAgain = props => {
-    const saveRecord = () => {
-        localStorage.setItem(getDate(),props.score)
-    }
-    saveRecord()
-	return (<div className="PlayGame">
-      {props.Name !== 'Start' ?  <h2>Your Score: {props.score}</h2>:<h2>Maths Game!</h2>}
-      <Button onClick={props.onClick} variant={props.theme !== 'dark' ? "outline-dark": "outline-light"}>{props.Name}</Button>
-	</div>)
 }
 
 const Game = props => {
@@ -50,7 +38,7 @@ const Game = props => {
     const [score, setScore] = useState(0);
     const [formula, setFormula] = useState(problem);
     const [answer, setAnswer] = useState(ans);
-    const [secondsLeft, setSecondsLeft] = useState(10)
+    const [secondsLeft, setSecondsLeft] = useState(600)
     
 
     useEffect (() => {
@@ -83,7 +71,7 @@ const Game = props => {
                     <Col>
                     {gameStatus === 'active' ? (
                         <Body obj={obj}/>) : (
-                        <PlayAgain onClick={props.startNewGame} Name={props.gameKey===0 ? 'Start':'Play Again'} theme={theme} score={score}/>   
+                        <PlayAgain onClick={props.startNewGame} Name={props.gameKey===0 ? 'Start':'Play Again'} theme={theme} score={score} gameStatus={gameStatus}/>   
                     )}
                     </Col>
                 </Row>

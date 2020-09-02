@@ -1,13 +1,13 @@
 {
   "name": "cn.vpool.kvalc",
   "displayName": "KvCalc",
-  "version": "0.0.1",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "version": "0.0.2",
+  "description": "A simple maths application.",
   "main": "index.js",
-  "homepage": "./",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && rm -rf wwww && mv build www",
+    "build": "react-scripts build && rm -rf www && mv build www",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

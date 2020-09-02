@@ -6,6 +6,7 @@
   justify-content: center;
   text-align: center;
   font-size: 25px;
+  margin-top: 3rem;
 }
 
 .PlayGame {
@@ -34,7 +35,7 @@
 .Title {
     font-size: 75px;
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .LIGHT {
@@ -47,5 +48,4 @@
     background-color: black;
 }
 
-/* .themeChanger {
-} */
+
