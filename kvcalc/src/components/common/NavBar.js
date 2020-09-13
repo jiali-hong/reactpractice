@@ -3,15 +3,15 @@ import {Navbar, Nav} from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 const NavBar = props => {
-    const colour = props.theme !== 'dark'? 'dark':'light'
+    const colour = localStorage.getItem('theme') !== 'dark'? 'dark':'light'
     const currentUser = localStorage.getItem('currentUser')
     const show = currentUser === null || currentUser ===  ''? 'login' : currentUser;
-    const NavColour = props.theme === 'dark'? 'NavLight':'NavDark';
+    const NavColour = localStorage.getItem('theme') === 'dark'? 'NavLight':'NavDark';
     const activeStyle = { fontWeight: "bold" };
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg={colour} variant={colour} fixed="bottom">
-            <Navbar.Brand><NavLink className={NavColour} activeStyle={activeStyle} exact to="/">KvCalc</NavLink></Navbar.Brand>
+        <Navbar collapseOnSelect expand="lg" bg={colour} variant={colour} fixed="bottom" sticky="bottom">
+            <Navbar.Brand><NavLink className={NavColour} activeStyle={activeStyle} onClick={props.refresh} exact to="/">KvCalc</NavLink></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

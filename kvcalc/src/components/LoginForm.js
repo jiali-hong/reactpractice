@@ -41,9 +41,9 @@ class LoginForm extends React.Component{
     }
 
     render() {
-        let colour = this.props.theme !== 'dark'? 'outline-dark':'outline-light';
+        let colour = localStorage.getItem('theme') !== 'dark'? 'outline-dark':'outline-light';
         return (
-            <div className={this.props.theme !== 'dark'? 'LIGHT': 'DARK'}>
+            <div className={localStorage.getItem('theme').toUpperCase()}>
                 <Container>
                     <h1 className='Title'>login</h1>
                     <Form>

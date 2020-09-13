@@ -1,23 +1,21 @@
 import {ButtonGroup,ToggleButton} from 'react-bootstrap';
 import React from 'react';
 
-const ThemeChanger = props => {
-    const radios = ['light','dark'];
+const SetTimer = props => {
+    const radios = ['300','450','600'];
 
     return (
-        <div className="themeChanger">
+        <div>
             <ButtonGroup toggle >
                 {radios.map((radio,idx) => 
                 <ToggleButton
                     type="radio"
                     key={idx}
-                    checked={localStorage.getItem('theme') === radio}
+                    checked={localStorage.getItem('time') === radio}
                     variant="outline-dark"
                     onClick={() => {
-                        localStorage.setItem('theme',radio)
-                        props.refresh()
-                        props.refreshNav()
-                        document.getElementById('HTML').className = localStorage.getItem('theme').toUpperCase();   
+                        localStorage.setItem('time',radio)
+                        props.refreshThis()
                     }}
                 > {radio} </ToggleButton>
                 )}
@@ -27,4 +25,4 @@ const ThemeChanger = props => {
 }
 
 
-export default ThemeChanger;
+export default SetTimer;

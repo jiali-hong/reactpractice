@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="cn.vpool.kvalc" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="cn.vpool.kvalc" version="0.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <hook type="before_prepare" src="scripts/prebuild.js" />
     <name>KvCalc</name>
-    <icon src="src/KvCalc_icon.png" />
+    <icon src="src/components/icons/KvCalc_icon.png" />
     <description>
         A simple maths application
     </description>

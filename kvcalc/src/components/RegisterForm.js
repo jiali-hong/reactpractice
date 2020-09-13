@@ -44,8 +44,6 @@ class RegisterForm extends React.Component{
                 localStorage.setItem('users',JSON.stringify(usersDict))
                 localStorage.setItem(username,JSON.stringify({}))
                 this.setState({redirect: true})
-                // window.location.assign("/login")
-                // this.props.refresh()
             }else{
                 alert('Your chosen email has already been used! Please use another email.')
             }
@@ -53,9 +51,9 @@ class RegisterForm extends React.Component{
     }
 
     render() {
-        let colour = this.props.theme !== 'dark'? 'outline-dark':'outline-light';
+        let colour = localStorage.getItem('theme') !== 'dark'? 'outline-dark':'outline-light';
         return (
-            <div className={this.props.theme !== 'dark'? 'LIGHT': 'DARK'}>
+            <div className={localStorage.getItem('theme').toUpperCase()}>
                 <Container>
                     <h1 className='Title'>Register</h1>
                     <Form>

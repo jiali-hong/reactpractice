@@ -41,11 +41,13 @@
 .LIGHT {
     color: black;
     background-color: white;
+    
 }
 
 .DARK {
     color: white;
     background-color: black;
+    margin-bottom: 80px;
 }
 
 
@@ -55,4 +57,41 @@
 
 .NavLight {
     color: rgb(93, 90, 90);
+}
+
+.center {
+    text-align: center;
+    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.usersProfile {
+    padding-bottom: 30%;
+}
+
+.profile {
+    width: 100%;
+    height: 100%;
+}
+
+.userDetails {
+    font-weight: 200;
+    text-align: center;
+    padding-bottom: 6%;
+}
+
+.pic {
+    width: 80px;
+    height: 82px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.settingsList {
+    color: black;
+    background-color: white;
 }

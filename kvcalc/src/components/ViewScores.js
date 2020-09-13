@@ -16,14 +16,14 @@ const ViewScores = (props) => {
         return array;
     }
     return (
-        <div className={props.theme !== 'dark'? 'LIGHT': 'DARK'}>
+        <div className={localStorage.getItem('theme').toUpperCase()}>
             <Container>
                 <h1 className="Title">Scores</h1>
                 {currentUser === null || currentUser === ''? 
                     <div>Please login first!</div>
                     :
                     <div>
-                        <Table striped hover variant={props.theme}>
+                        <Table striped hover variant={localStorage.getItem('theme')}>
                             <thead>
                                 <tr>
                                     <th>#</th>

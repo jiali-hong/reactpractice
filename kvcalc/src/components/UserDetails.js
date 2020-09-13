@@ -1,24 +1,24 @@
 import React from 'react';
-import {Container,Row,Col,Button} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Container, Col, Row } from 'react-bootstrap';
+// import KvCalc_icon_default_profile from './icons/KvCalc_icon_default_profile.png'
+import getStreak from './utils/getStreak';
+import {CgProfile} from 'react-icons/cg'
 
-const PlayAgain = props => {
+const UserDetails = props => {
+    const currentUser =  localStorage.getItem('currentUser'),
+        usersObj = JSON.parse(localStorage.getItem('users')),
+        scoresObj = JSON.parse(localStorage.getItem(currentUser))
 	return (
-        <div className={props.theme !== 'dark'? 'LIGHT': 'DARK'}>
-            <Container>
-                <h1 className="Title">User Details</h1>
+        <div className={localStorage.getItem('theme').toUpperCase()}>
+            <Container className="center">
+                <h1 style={{paddingBottom: "20px"}}>Account</h1>
+                <CgProfile className="pic"/>
+                <h5>{currentUser}</h5>
+                <div style={{paddingBottom: "20px"}}>{usersObj[currentUser]['email']}</div>
                 <Row>
-                    <Col>
-                        <div>Comming Soon...</div>
-                    </Col>
+                    <Col>Streak: {getStreak(Object.keys(scoresObj))}</Col>
+                    <Col>Games Played: {Object.keys(scoresObj).length}</Col>
                 </Row>
-                <Row>
-                    <Col></Col>
-                    <Col>
-                       <Link to='login' onClick={() => {localStorage.setItem("currentUser",'');props.refresh()}}>logout</Link>
-                    </Col>
-                </Row>
-                
             </Container>
         </div>
     )
@@ -26,4 +26,4 @@ const PlayAgain = props => {
 
 
 
-export default PlayAgain;
+export default UserDetails; 
