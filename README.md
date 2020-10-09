@@ -2,10 +2,16 @@
 Make small projects and apps with react in here.
 
 
+
+
+
 ### /shuffle-words
 cordova and react combined app
 run with command:
 #### npm start
+
+
+
 
 
 ### /kvcalc
@@ -14,10 +20,16 @@ run with command:
 #### npm start
 
 
+
+
+
 ### /jscomplete
 made with: https://jscomplete.com/playground/
 #### /gitHub-cards-app.js
 some react updates on the original: https://jscomplete.com/playground/rgs2.7
+
+
+
 
 
 ### /flask-rest
