@@ -2,10 +2,13 @@
 Make small projects and apps with react in here.
 
 
+
+
+
 ## /shuffle-words
 cordova and react combined app
 run with command:
-##### npm start
+ˋnpm startˋ
 
 
 
@@ -14,7 +17,7 @@ run with command:
 ## /kvcalc
 an app based on: https://arithmetic.zetamac.com/
 run with command:
-##### npm start
+ˋnpm startˋ
 
 
 
@@ -22,7 +25,7 @@ run with command:
 
 ## /jscomplete
 made with: https://jscomplete.com/playground/
-##### /gitHub-cards-app.js
+**/gitHub-cards-app.js**
 some react updates on the original: https://jscomplete.com/playground/rgs2.7
 
 
