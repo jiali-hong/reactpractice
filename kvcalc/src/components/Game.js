@@ -75,7 +75,7 @@ const Game = props => {
         setAnswer,
         getRandomFormula,
     }
-    const gameStatus = props.gameKey === 0 ? 'start' : secondsLeft === 0 ? 'stop' : 'active';
+    const gameStatus = props.gameKey === 0 ? 'start' : secondsLeft <= 0 ? 'stop' : 'active';
     
     return(
         <div className={localStorage.getItem('theme').toUpperCase()}>
